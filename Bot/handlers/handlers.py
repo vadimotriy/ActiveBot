@@ -18,9 +18,25 @@ def handlers(data: Data):
         command = color("/start")
 
         try:
-            logger.info(f"Пользовтаель с {user_id} активировал {command}")
             keyboard = make_keyboard(ANSWERS["start"]["keyboard"], 1)
-
             await message.answer(text=ANSWERS["start"]["message"], reply_markup=keyboard)
-        except Exception as e:
+
+            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # переход в меню физического благополучия
+    @router.message(F.text == "Физическое благополучие")
+    async def physical(message: types.Message):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Физическое благополучие")
+
+        try:
+            inline = make_inline(ANSWERS["physical"]["inline"], 1, message.from_user.id)
+            await message.answer(text=ANSWERS["physical"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
