@@ -4,7 +4,7 @@ import sqlite3
 class Data:
     # Открытие (или создание) БД
     def __init__(self):  
-        self.connection = sqlite3.connect('Bot/data/data.db')
+        self.connection = sqlite3.connect("Bot/data/data.db")
         self.cursor = self.connection.cursor()
 
         

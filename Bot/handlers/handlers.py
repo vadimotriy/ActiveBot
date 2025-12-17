@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 
 from Bot.database.constants import *
 from Bot.database.database import Data
-from Bot.database.functions import make_keyboard, make_keyboard_inline, color
+from Bot.database.functions import make_keyboard, make_inline, color
 from Bot.database.logger import logger
 
 router = Router()
@@ -12,8 +12,15 @@ router = Router()
 
 def handlers(data: Data):
     # Стартовое сообщение
-    @router.message(F.text, Command('start'))
+    @router.message(F.text, Command("start"))
     async def start(message: types.Message):
-        logger.info(f"Пользовтаель с {color('id=' + str(message.from_user.id))} активировал {color('/start')}")
-        
-        await message.answer(text=ANSWERS['start_message'])
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("/start")
+
+        try:
+            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+            keyboard = make_keyboard(ANSWERS["start"]["keyboard"], 1)
+
+            await message.answer(text=ANSWERS["start"]["message"], reply_markup=keyboard)
+        except Exception as e:
+            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")

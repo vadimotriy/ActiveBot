@@ -15,7 +15,7 @@ dp = Dispatcher()
 data = Data()
 
 # Запуск проекта
-if __name__ == '__main__':
+if __name__ == "__main__":
     handlers(data)
     # callbacks(data)
 
@@ -28,5 +28,7 @@ if __name__ == '__main__':
         await bot.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(bot)
 
-
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Бот выключен")

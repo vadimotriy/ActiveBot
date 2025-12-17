@@ -2,6 +2,7 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, KeyboardButton
 
 
+# Функция для создания клавиатуры
 def make_keyboard(buttons: list[str], adjust: int):
     builder = ReplyKeyboardBuilder()
     for i in buttons:
@@ -11,7 +12,8 @@ def make_keyboard(buttons: list[str], adjust: int):
     return builder.as_markup()
 
 
-def make_keyboard_inline(buttons: list[str], adjust: int, id: int):
+# Функция для создания инлайн кнопок
+def make_inline(buttons: list[str], adjust: int, id: int):
     builder = InlineKeyboardBuilder()
     for i in buttons:
         builder.add(InlineKeyboardButton(text=i, callback_data=f'*{id}'))
