@@ -1,0 +1,302 @@
+[
+  {
+    "day": 1,
+    "tasks": [
+      {"activity": "ходьба", "amount": "2", "description": "Прогулка в среднем темпе <b>2 км</b>"},
+      {"activity": "приседания", "amount": "15", "description": "Классические приседания <b>15 раз</b>"},
+      {"activity": "подтягивания", "amount": "8", "description": "С помощью резинки или партнера <b>8 раз</b>"},
+      {"activity": "велосипед", "amount": "6", "description": "Езда в комфортном темпе <b>6 км</b>"},
+      {"activity": "плавание", "amount": "1", "description": "Свободный стиль <b>1 км</b>"}
+    ]
+  },
+  {
+    "day": 2,
+    "tasks": [
+      {"activity": "пресс", "amount": "10", "description": "Скручивания лежа <b>10 раз</b>"},
+      {"activity": "бег", "amount": "3", "description": "Легкая пробежка <b>3 км</b>"},
+      {"activity": "отжимания", "amount": "10", "description": "От пола или от стены <b>10 раз</b>"},
+      {"activity": "велосипед", "amount": "7", "description": "С постоянным темпом <b>7 км</b>"},
+      {"activity": "плавание", "amount": "1", "description": "Работа над техникой <b>1 км</b>"}
+    ]
+  },
+  {
+    "day": 3,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "10", "description": "Широкая постановка рук <b>10 раз</b>"},
+      {"activity": "приседания", "amount": "20", "description": "С широкой постановкой ног <b>20 раз</b>"},
+      {"activity": "ходьба", "amount": "2", "description": "Скандинавская ходьба <b>2 км</b>"},
+      {"activity": "велосипед", "amount": "8", "description": "По ровной местности <b>8 км</b>"},
+      {"activity": "плавание", "amount": "1.2", "description": "С доской для ног <b>1.2 км</b>"}
+    ]
+  },
+  {
+    "day": 4,
+    "tasks": [
+      {"activity": "бег", "amount": "4", "description": "С интервалами ходьбы <b>4 км</b>"},
+      {"activity": "пресс", "amount": "15", "description": "Подъем ног лежа <b>15 раз</b>"},
+      {"activity": "отжимания", "amount": "12", "description": "Средняя постановка рук <b>12 раз</b>"},
+      {"activity": "велосипед", "amount": "9", "description": "С легким сопротивлением <b>9 км</b>"},
+      {"activity": "плавание", "amount": "1.5", "description": "Разные стили <b>1.5 км</b>"}
+    ]
+  },
+  {
+    "day": 5,
+    "tasks": [
+      {"activity": "приседания", "amount": "25", "description": "Плие-приседания <b>25 раз</b>"},
+      {"activity": "подтягивания", "amount": "12", "description": "Средний хват <b>12 раз</b>"},
+      {"activity": "ходьба", "amount": "2", "description": "В гору или по ступенькам <b>2 км</b>"},
+      {"activity": "велосипед", "amount": "9", "description": "С умеренным сопротивлением <b>9 км</b>"},
+      {"activity": "плавание", "amount": "2", "description": "На выносливость <b>2 км</b>"}
+    ]
+  },
+  {
+    "day": 6,
+    "tasks": [
+      {"activity": "пресс", "amount": "20", "description": "Русские скручивания <b>20 раз</b>"},
+      {"activity": "бег", "amount": "4.5", "description": "Непрерывный бег <b>4.5 км</b>"},
+      {"activity": "отжимания", "amount": "15", "description": "Узкая постановка рук <b>15 раз</b>"},
+      {"activity": "велосипед", "amount": "10", "description": "Интервальная тренировка <b>10 км</b>"},
+      {"activity": "плавание", "amount": "2", "description": "Техника кроля <b>2 км</b>"}
+    ]
+  },
+  {
+    "day": 7,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "15", "description": "Разные хваты <b>15 раз</b>"},
+      {"activity": "приседания", "amount": "30", "description": "С прыжком <b>30 раз</b>"},
+      {"activity": "ходьба", "amount": "4", "description": "Быстрым шагом <b>4 км</b>"},
+      {"activity": "велосипед", "amount": "15", "description": "Длительная поездка <b>15 км</b>"},
+      {"activity": "плавание", "amount": "2.3", "description": "Комплексное плавание <b>2.3 км</b>"}
+    ]
+  },
+  {
+    "day": 8,
+    "tasks": [
+      {"activity": "отжимания", "amount": "18", "description": "С хлопком <b>18 раз</b>"},
+      {"activity": "пресс", "amount": "25", "description": "Велосипед лежа <b>25 раз</b>"},
+      {"activity": "бег", "amount": "4", "description": "По пересеченной местности <b>4 км</b>"},
+      {"activity": "велосипед", "amount": "10", "description": "Горный велосипед <b>10 км</b>"},
+      {"activity": "плавание", "amount": "2", "description": "Плавание на спине <b>2 км</b>"}
+    ]
+  },
+  {
+    "day": 9,
+    "tasks": [
+      {"activity": "приседания", "amount": "35", "description": "Сумо с широкой постановкой <b>35 раз</b>"},
+      {"activity": "подтягивания", "amount": "18", "description": "С негативными повторениями <b>18 раз</b>"},
+      {"activity": "ходьба", "amount": "4.5", "description": "Непрерывная ходьба <b>4.5 км</b>"},
+      {"activity": "велосипед", "amount": "12", "description": "Спринтерские интервалы <b>12 км</b>"},
+      {"activity": "плавание", "amount": "2.5", "description": "Кроль <b>2.5 км</b>"}
+    ]
+  },
+  {
+    "day": 10,
+    "tasks": [
+      {"activity": "пресс", "amount": "30", "description": "Скручивания с поднятыми ногами <b>30 раз</b>"},
+      {"activity": "бег", "amount": "5", "description": "Стабильный темп <b>5 км</b>"},
+      {"activity": "отжимания", "amount": "20", "description": "С отягощением (рюкзак) <b>20 раз</b>"},
+      {"activity": "велосипед", "amount": "16", "description": "По пересеченной местности <b>16 км</b>"},
+      {"activity": "плавание", "amount": "2.8", "description": "Баттерфляй + кроль <b>2.8 км</b>"}
+    ]
+  },
+  {
+    "day": 11,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "20", "description": "С полной амплитудой <b>20 раз</b>"},
+      {"activity": "приседания", "amount": "40", "description": "С гантелями <b>40 раз</b>"},
+      {"activity": "ходьба", "amount": "5", "description": "С рюкзаком <b>5 км</b>"},
+      {"activity": "велосипед", "amount": "13", "description": "Интервалы: 30 сек спринт / 1 мин отдых <b>13 км</b>"},
+      {"activity": "плавание", "amount": "3", "description": "Без остановок <b>3 км</b>"}
+    ]
+  },
+  {
+    "day": 12,
+    "tasks": [
+      {"activity": "отжимания", "amount": "22", "description": "На одной руке (чередуя) <b>22 раза</b>"},
+      {"activity": "пресс", "amount": "35", "description": "Планка с подъемом таза <b>35 раз</b>"},
+      {"activity": "бег", "amount": "5.5", "description": "С уклонами <b>5.5 км</b>"},
+      {"activity": "велосипед", "amount": "18", "description": "Выезд за город <b>18 км</b>"},
+      {"activity": "плавание", "amount": "3.2", "description": "Техника дыхания <b>3.2 км</b>"}
+    ]
+  },
+  {
+    "day": 13,
+    "tasks": [
+      {"activity": "приседания", "amount": "45", "description": "Плие с гантелями <b>45 раз</b>"},
+      {"activity": "подтягивания", "amount": "22", "description": "С весом на поясе <b>22 раза</b>"},
+      {"activity": "ходьба", "amount": "5.5", "description": "С палками <b>5.5 км</b>"},
+      {"activity": "велосипед", "amount": "14", "description": "Сопротивление: 7/10 <b>14 км</b>"},
+      {"activity": "плавание", "amount": "3.5", "description": "Комбинированный стиль <b>3.5 км</b>"}
+    ]
+  },
+  {
+    "day": 14,
+    "tasks": [
+      {"activity": "пресс", "amount": "40", "description": "Обратные скручивания <b>40 раз</b>"},
+      {"activity": "бег", "amount": "6", "description": "Маршрут с холмами <b>6 км</b>"},
+      {"activity": "отжимания", "amount": "25", "description": "Французские отжимания <b>25 раз</b>"},
+      {"activity": "велосипед", "amount": "20", "description": "Долгая дистанция <b>20 км</b>"},
+      {"activity": "плавание", "amount": "3.8", "description": "Бесперебойное плавание <b>3.8 км</b>"}
+    ]
+  },
+  {
+    "day": 15,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "25", "description": "С полным контролем <b>25 раз</b>"},
+      {"activity": "приседания", "amount": "50", "description": "С прыжком и гантелями <b>50 раз</b>"},
+      {"activity": "ходьба", "amount": "6", "description": "Умеренный темп <b>6 км</b>"},
+      {"activity": "велосипед", "amount": "15", "description": "Спринты каждые 2 км <b>15 км</b>"},
+      {"activity": "плавание", "amount": "4", "description": "Максимальная дистанция <b>4 км</b>"}
+    ]
+  },
+  {
+    "day": 16,
+    "tasks": [
+      {"activity": "отжимания", "amount": "28", "description": "С отягощением <b>28 раз</b>"},
+      {"activity": "пресс", "amount": "45", "description": "Вис на турнике с подъемом ног <b>45 раз</b>"},
+      {"activity": "бег", "amount": "6.5", "description": "Темп ниже порога <b>6.5 км</b>"},
+      {"activity": "велосипед", "amount": "22", "description": "По лесным тропам <b>22 км</b>"},
+      {"activity": "плавание", "amount": "4.2", "description": "С дыханием каждые 3 гребка <b>4.2 км</b>"}
+    ]
+  },
+  {
+    "day": 17,
+    "tasks": [
+      {"activity": "приседания", "amount": "55", "description": "Сумо с весом <b>55 раз</b>"},
+      {"activity": "подтягивания", "amount": "28", "description": "Разные хваты + вес <b>28 раз</b>"},
+      {"activity": "ходьба", "amount": "6.5", "description": "С рюкзаком 10 кг <b>6.5 км</b>"},
+      {"activity": "велосипед", "amount": "16", "description": "Горный маршрут <b>16 км</b>"},
+      {"activity": "плавание", "amount": "4.5", "description": "Без дополнительных средств <b>4.5 км</b>"}
+    ]
+  },
+  {
+    "day": 18,
+    "tasks": [
+      {"activity": "пресс", "amount": "50", "description": "Планка с вращением <b>50 раз</b>"},
+      {"activity": "бег", "amount": "7", "description": "Непрерывный бег <b>7 км</b>"},
+      {"activity": "отжимания", "amount": "30", "description": "На вытянутых руках <b>30 раз</b>"},
+      {"activity": "велосипед", "amount": "24", "description": "Средне-сложный маршрут <b>24 км</b>"},
+      {"activity": "плавание", "amount": "4.8", "description": "Комплекс: техника + скорость <b>4.8 км</b>"}
+    ]
+  },
+  {
+    "day": 19,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "30", "description": "С отягощением 5 кг <b>30 раз</b>"},
+      {"activity": "приседания", "amount": "60", "description": "С прыжком и весом <b>60 раз</b>"},
+      {"activity": "ходьба", "amount": "7", "description": "С палками и рюкзаком <b>7 км</b>"},
+      {"activity": "велосипед", "amount": "17", "description": "С интервалами <b>17 км</b>"},
+      {"activity": "плавание", "amount": "5", "description": "Плавание на время <b>5 км</b>"}
+    ]
+  },
+  {
+    "day": 20,
+    "tasks": [
+      {"activity": "отжимания", "amount": "32", "description": "На одной руке (по 16 на каждую) <b>32 раза</b>"},
+      {"activity": "пресс", "amount": "55", "description": "Скручивания с гантелью <b>55 раз</b>"},
+      {"activity": "бег", "amount": "7.5", "description": "По пересеченной местности <b>7.5 км</b>"},
+      {"activity": "велосипед", "amount": "26", "description": "Длительная поездка <b>26 км</b>"},
+      {"activity": "плавание", "amount": "5.2", "description": "Смешанные стили <b>5.2 км</b>"}
+    ]
+  },
+  {
+    "day": 21,
+    "tasks": [
+      {"activity": "приседания", "amount": "65", "description": "С гантелями и прыжком <b>65 раз</b>"},
+      {"activity": "подтягивания", "amount": "32", "description": "С весом 7 кг <b>32 раза</b>"},
+      {"activity": "ходьба", "amount": "7.5", "description": "Быстрым шагом <b>7.5 км</b>"},
+      {"activity": "велосипед", "amount": "18", "description": "Сопротивление 8/10 <b>18 км</b>"},
+      {"activity": "плавание", "amount": "5.5", "description": "На выносливость <b>5.5 км</b>"}
+    ]
+  },
+  {
+    "day": 22,
+    "tasks": [
+      {"activity": "пресс", "amount": "60", "description": "Велосипед с гантелями <b>60 раз</b>"},
+      {"activity": "бег", "amount": "8", "description": "Маршрут с холмами <b>8 км</b>"},
+      {"activity": "отжимания", "amount": "35", "description": "С отягощением 10 кг <b>35 раз</b>"},
+      {"activity": "велосипед", "amount": "28", "description": "Горный велосипед <b>28 км</b>"},
+      {"activity": "плавание", "amount": "5.8", "description": "Кроль + баттерфляй <b>5.8 км</b>"}
+    ]
+  },
+  {
+    "day": 23,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "35", "description": "С весом 10 кг <b>35 раз</b>"},
+      {"activity": "приседания", "amount": "70", "description": "Сумо с весом 10 кг <b>70 раз</b>"},
+      {"activity": "ходьба", "amount": "8", "description": "С рюкзаком 15 кг <b>8 км</b>"},
+      {"activity": "велосипед", "amount": "19", "description": "Спринты каждые 1.5 км <b>19 км</b>"},
+      {"activity": "плавание", "amount": "6", "description": "Плавание без отдыха <b>6 км</b>"}
+    ]
+  },
+  {
+    "day": 24,
+    "tasks": [
+      {"activity": "отжимания", "amount": "38", "description": "Французские + вес <b>38 раз</b>"},
+      {"activity": "пресс", "amount": "65", "description": "Русские скручивания с весом <b>65 раз</b>"},
+      {"activity": "бег", "amount": "8.5", "description": "Темповая пробежка <b>8.5 км</b>"},
+      {"activity": "велосипед", "amount": "30", "description": "Марафонская дистанция <b>30 км</b>"},
+      {"activity": "плавание", "amount": "6.2", "description": "Комплексная тренировка <b>6.2 км</b>"}
+    ]
+  },
+  {
+    "day": 25,
+    "tasks": [
+      {"activity": "приседания", "amount": "75", "description": "С прыжком и 15 кг <b>75 раз</b>"},
+      {"activity": "подтягивания", "amount": "38", "description": "С весом 12 кг <b>38 раз</b>"},
+      {"activity": "ходьба", "amount": "8.5", "description": "С палками и рюкзаком <b>8.5 км</b>"},
+      {"activity": "велосипед", "amount": "20", "description": "Интервалы 1:1 <b>20 км</b>"},
+      {"activity": "плавание", "amount": "6.5", "description": "На скорость и технику <b>6.5 км</b>"}
+    ]
+  },
+  {
+    "day": 26,
+    "tasks": [
+      {"activity": "пресс", "amount": "70", "description": "Планка с подъемом <b>70 раз</b>"},
+      {"activity": "бег", "amount": "9", "description": "По пересеченной местности <b>9 км</b>"},
+      {"activity": "отжимания", "amount": "40", "description": "С отягощением 12 кг <b>40 раз</b>"},
+      {"activity": "велосипед", "amount": "32", "description": "Средне-сложный маршрут <b>32 км</b>"},
+      {"activity": "плавание", "amount": "6.8", "description": "Без остановок <b>6.8 км</b>"}
+    ]
+  },
+  {
+    "day": 27,
+    "tasks": [
+      {"activity": "подтягивания", "amount": "40", "description": "С весом 15 кг <b>40 раз</b>"},
+      {"activity": "приседания", "amount": "80", "description": "С гантелями 20 кг <b>80 раз</b>"},
+      {"activity": "ходьба", "amount": "9", "description": "С рюкзаком 20 кг <b>9 км</b>"},
+      {"activity": "велосипед", "amount": "21", "description": "Сопротивление 9/10 <b>21 км</b>"},
+      {"activity": "плавание", "amount": "7", "description": "Максимальная дистанция <b>7 км</b>"}
+    ]
+  },
+  {
+    "day": 28,
+    "tasks": [
+      {"activity": "отжимания", "amount": "42", "description": "На одной руке с весом <b>42 раза</b>"},
+      {"activity": "пресс", "amount": "75", "description": "Скручивания с отягощением <b>75 раз</b>"},
+      {"activity": "бег", "amount": "9.5", "description": "Темп выше порога <b>9.5 км</b>"},
+      {"activity": "велосипед", "amount": "34", "description": "Горный маршрут <b>34 км</b>"},
+      {"activity": "плавание", "amount": "7.2", "description": "Комплекс: 2 стиля <b>7.2 км</b>"}
+    ]
+  },
+  {
+    "day": 29,
+    "tasks": [
+      {"activity": "приседания", "amount": "85", "description": "С прыжком и 20 кг <b>85 раз</b>"},
+      {"activity": "подтягивания", "amount": "42", "description": "С весом 18 кг <b>42 раза</b>"},
+      {"activity": "ходьба", "amount": "9.5", "description": "С палками и рюкзаком <b>9.5 км</b>"},
+      {"activity": "велосипед", "amount": "22", "description": "Спринты каждые км <b>22 км</b>"},
+      {"activity": "плавание", "amount": "7.5", "description": "Без отдыха <b>7.5 км</b>"}
+    ]
+  },
+  {
+    "day": 30,
+    "tasks": [
+      {"activity": "пресс", "amount": "80", "description": "Полный комплекс: велосипед + скручивания <b>80 раз</b>"},
+      {"activity": "бег", "amount": "10", "description": "Марафонская подготовка <b>10 км</b>"},
+      {"activity": "отжимания", "amount": "45", "description": "С отягощением 15 кг <b>45 раз</b>"},
+      {"activity": "велосипед", "amount": "36", "description": "Финальная поездка <b>36 км</b>"},
+      {"activity": "плавание", "amount": "8", "description": "Финальная дистанция <b>8 км</b>"}
+    ]
+  }
+]
