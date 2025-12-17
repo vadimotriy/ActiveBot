@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 
 from Bot.database.constants import *
 from Bot.database.database import Data
-from Bot.database.functions import color, make_inline
+from Bot.database.functions import color, make_inline, get_days
 from Bot.database.logger import logger
 
 router_for_callbacks = Router()
@@ -17,10 +17,10 @@ def callbacks(data: Data):
         command = color("Ежедневные задания")
 
         try:
-            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+            logger.info(f"Пользователь с {user_id} активировал {command}")
         
         except Exception as e: # на случай непредвиденной ошибки
-            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
     # Настройки (главное меню)
     @router_for_callbacks.callback_query(F.data.startswith("*settings*"))
@@ -44,14 +44,14 @@ def callbacks(data: Data):
             text = ANSWERS["settings"]["message"] + answer_text1 + answer_text2
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
-            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+            logger.info(f"Пользователь с {user_id} активировал {command}")
         
         except Exception as e: # на случай непредвиденной ошибки
-            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
     # Изменние настроек о добавление плавания в ежедневные задания
     @router_for_callbacks.callback_query(F.data.startswith("*swimming*"))
-    async def settings(callback_query: types.CallbackQuery):
+    async def swimming(callback_query: types.CallbackQuery):
         text = callback_query.data.split("*")
         id_user, change = int(text[2]), text[1]
         index = 0 if change == "swimming" else 1
@@ -76,14 +76,14 @@ def callbacks(data: Data):
             text = ANSWERS["settings"]["message"] + answer_text1 + answer_text2
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
-            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+            logger.info(f"Пользователь с {user_id} активировал {command}")
         
         except Exception as e: # на случай непредвиденной ошибки
-            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
     # Изменние настроек о добавление велосипеда в ежедневные задания
     @router_for_callbacks.callback_query(F.data.startswith("*bicycle*"))
-    async def settings(callback_query: types.CallbackQuery):
+    async def bicycle(callback_query: types.CallbackQuery):
         text = callback_query.data.split("*")
         id_user, change = int(text[2]), text[1]
         index = 0 if change == "swimming" else 1
@@ -108,10 +108,31 @@ def callbacks(data: Data):
             text = ANSWERS["settings"]["message"] + answer_text1 + answer_text2
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
-            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+            logger.info(f"Пользователь с {user_id} активировал {command}")
         
         except Exception as e: # на случай непредвиденной ошибки
-            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Данные о статистике
+    @router_for_callbacks.callback_query(F.data.startswith("*statistics*"))
+    async def statistics(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Статистика")
+
+        try:
+            settings = data.get_settings(id_user)
+            registration = f"Дата регистрации в боте: <i>{settings[2]}</i>\n"
+            days = f"Дней в сервисе: <i>{get_days(settings[2])}</i>"
+
+            text = ANSWERS["statistics"]["message"] + registration + days
+            inline = make_inline(ANSWERS["statistics"]["inline"], ANSWERS["statistics"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=text, reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
     # возвращение в главное меню (из настроек)
     @router_for_callbacks.callback_query(F.data.startswith("*menu*"))
@@ -124,7 +145,7 @@ def callbacks(data: Data):
             inline = make_inline(ANSWERS["menu"]["inline"], ANSWERS["menu"]["backend"], 1, id_user)
             await callback_query.message.edit_text(text=ANSWERS["menu"]["message"], reply_markup=inline)
 
-            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+            logger.info(f"Пользователь с {user_id} активировал {command}")
         
         except Exception as e: # на случай непредвиденной ошибки
-            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")

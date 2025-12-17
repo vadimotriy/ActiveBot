@@ -12,7 +12,8 @@ class Data:
             CREATE TABLE IF NOT EXISTS Settings (
             USER_ID INTEGER PRIMARY KEY,
             SWIMMING INTEGER NOT NULL,
-            BICYCLE INTEGER NOT NULL)
+            BICYCLE INTEGER NOT NULL,
+            DATE TEXT NOT NULL)
         """)
 
         # Таблица ежедневных заданий пользователей
@@ -29,13 +30,12 @@ class Data:
         """)
     
     # Добавление новго пользователя в БД 
-    def add_user(self, user_id: int):
+    def add_user(self, user_id: int, date: str):
         all_users = self.cursor.execute('SELECT USER_ID FROM Settings').fetchall()
-        print(all_users)
 
         if (user_id,) not in all_users:
-            self.cursor.execute('INSERT INTO Settings (USER_ID, SWIMMING, BICYCLE) VALUES (?, ?, ?)',
-                                (user_id, 0, 0))
+            self.cursor.execute('INSERT INTO Settings (USER_ID, SWIMMING, BICYCLE, DATE) VALUES (?, ?, ?, ?)',
+                                (user_id, 0, 0, date))
             self.connection.commit()
 
     # Изменние настроек о добавление плавания/велосипеда в ежедневные задания
@@ -44,8 +44,8 @@ class Data:
                              (value, user_id))
         self.connection.commit()
     
-    # Получение данных об плавании и велосипеда в ежедневных заданиях
+    # Получение данных об плавании и велосипеда в ежедневных заданиях, а также дату регистрации
     def get_settings(self, user_id: int) -> tuple[int]:
-        result = self.cursor.execute('SELECT SWIMMING, BICYCLE FROM Settings '
+        result = self.cursor.execute('SELECT SWIMMING, BICYCLE, DATE FROM Settings '
                                       'WHERE USER_ID = ?', (user_id,)).fetchone()
         return result

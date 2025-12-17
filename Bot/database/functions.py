@@ -1,6 +1,7 @@
+import datetime
+
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, KeyboardButton
-
 
 # Функция для создания клавиатуры
 def make_keyboard(buttons: list[str], adjust: int):
@@ -11,7 +12,6 @@ def make_keyboard(buttons: list[str], adjust: int):
 
     return builder.as_markup()
 
-
 # Функция для создания инлайн кнопок
 def make_inline(buttons: list[str], message: list[str], adjust: int, id: int):
     builder = InlineKeyboardBuilder()
@@ -21,7 +21,15 @@ def make_inline(buttons: list[str], message: list[str], adjust: int, id: int):
 
     return builder.as_markup()
 
-
-# Функция, для желтого текста в логировании
+# Функция для желтого текста в логировании
 def color(text: str) -> str:
     return f"\033[1m\033[33m{text}\033[0m"
+
+# Функция для нахождения количества днейв промежутке
+def get_days(registration: str) -> int:
+    date_now = datetime.date.today()
+
+    datetime_object = datetime.datetime.strptime(registration, "%Y-%m-%d")
+    date_object = datetime_object.date()
+
+    return (date_now - date_object).days + 1
