@@ -8,7 +8,7 @@ from Bot.database.database import Data
 from Bot.database.constants import API_TOKEN
 from Bot.database.logger import logger
 from Bot.handlers.handlers import router, handlers
-# from Bot.handlers.callbacks import router_for_callbacks, callbacks
+from Bot.handlers.callbacks import router_for_callbacks, callbacks
 
 bot = Bot(token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
@@ -17,10 +17,10 @@ data = Data()
 # Запуск проекта
 if __name__ == "__main__":
     handlers(data)
-    # callbacks(data)
+    callbacks(data)
 
     dp.include_router(router)
-    # dp.include_router(router_for_callbacks)
+    dp.include_router(router_for_callbacks)
 
     logger.info("Бот запущен")
 
@@ -30,5 +30,5 @@ if __name__ == "__main__":
 
     try:
         asyncio.run(main())
-    except KeyboardInterrupt:
+    except KeyboardInterrupt: # Остановка бота (Ctrl + C)
         logger.info("Бот выключен")

@@ -18,6 +18,8 @@ def handlers(data: Data):
         command = color("/start")
 
         try:
+            data.add_user(message.from_user.id)
+            
             keyboard = make_keyboard(ANSWERS["start"]["keyboard"], 1)
             await message.answer(text=ANSWERS["start"]["message"], reply_markup=keyboard)
 
@@ -26,15 +28,30 @@ def handlers(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
     
-    # переход в меню физического благополучия
+    # Переход в меню физического благополучия
     @router.message(F.text == "Физическое благополучие")
     async def physical(message: types.Message):
         user_id = color("id=" + str(message.from_user.id))
         command = color("Физическое благополучие")
 
         try:
-            inline = make_inline(ANSWERS["physical"]["inline"], 1, message.from_user.id)
+            inline = make_inline(ANSWERS["physical"]["inline"], ANSWERS["physical"]["backend"], 1, message.from_user.id)
             await message.answer(text=ANSWERS["physical"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользовтаель с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользовтаель с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Переход в главное меню
+    @router.message(F.text == "Главное меню")
+    async def menu(message: types.Message):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Главное меню")
+
+        try:
+            inline = make_inline(ANSWERS["menu"]["inline"], ANSWERS["menu"]["backend"], 1, message.from_user.id)
+            await message.answer(text=ANSWERS["menu"]["message"], reply_markup=inline)
 
             logger.info(f"Пользовтаель с {user_id} активировал {command}")
         

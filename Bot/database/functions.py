@@ -13,15 +13,15 @@ def make_keyboard(buttons: list[str], adjust: int):
 
 
 # Функция для создания инлайн кнопок
-def make_inline(buttons: list[str], adjust: int, id: int):
+def make_inline(buttons: list[str], message: list[str], adjust: int, id: int):
     builder = InlineKeyboardBuilder()
-    for i in buttons:
-        builder.add(InlineKeyboardButton(text=i, callback_data=f'*{id}'))
+    for i in range(len(buttons)):
+        builder.add(InlineKeyboardButton(text=buttons[i], callback_data=f'*{message[i]}*{id}'))
     builder.adjust(adjust)
 
     return builder.as_markup()
 
 
 # Функция, для желтого текста в логировании
-def color(text: str):
+def color(text: str) -> str:
     return f"\033[1m\033[33m{text}\033[0m"
