@@ -1,5 +1,6 @@
 from aiogram import types, F, Router
 from aiogram.fsm.context import FSMContext
+from random import choice
 
 from Bot.database.constants import *
 from Bot.database.database import Data
@@ -123,9 +124,10 @@ def callbacks(data: Data):
         try:
             settings = data.get_settings(id_user)
             registration = f"Дата регистрации в боте: <i>{settings[2]}</i>\n"
-            days = f"Дней в сервисе: <i>{get_days(settings[2])}</i>"
+            days = f"Дней в сервисе: <i>{get_days(settings[2])}</i>\n"
+            tasks = f"Выполнено ежедневных заданий: <i>0</i>"
 
-            text = ANSWERS["statistics"]["message"] + registration + days
+            text = ANSWERS["statistics"]["message"] + registration + days + tasks
             inline = make_inline(ANSWERS["statistics"]["inline"], ANSWERS["statistics"]["backend"], 1, id_user)
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
@@ -144,6 +146,22 @@ def callbacks(data: Data):
         try:
             inline = make_inline(ANSWERS["menu"]["inline"], ANSWERS["menu"]["backend"], 1, id_user)
             await callback_query.message.edit_text(text=ANSWERS["menu"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # советы (физическое благополучие)
+    @router_for_callbacks.callback_query(F.data.startswith("*advices*"))
+    async def advices(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Советы")
+
+        try:
+            advice = choice(ADVICES)
+            await callback_query.answer(text=advice, show_alert=True)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         

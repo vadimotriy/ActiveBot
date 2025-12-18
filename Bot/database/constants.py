@@ -17,3 +17,7 @@ with open("Bot/data/intensive.json", encoding="utf-8") as json_file:
 # Загрзука заданий
 with open("Bot/data/tasks.json", encoding="utf-8") as json_file:
     TASKS = json.load(json_file)
+
+# Загрзука солветов
+with open("Bot/data/advices.json", encoding="utf-8") as json_file:
+    ADVICES = json.load(json_file)
