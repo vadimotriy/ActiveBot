@@ -58,7 +58,18 @@ class Data:
 
         return result
     
+    # Добавление сгенерированных ежедневных задач польхователя в БД
     def add_tasks(self, user_id: int, date: str, tasks_text: list[str]):
         self.cursor.execute('INSERT INTO Tasks (USER_ID, TASK1, TEXT1, TASK2, TEXT2, TASK3, TEXT3, DATA) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                              (user_id, 0, tasks_text[0], 0, tasks_text[1], 0, tasks_text[2], date))
+        self.connection.commit()
+    
+    # Фиксирование того, что пользователь выполнил задание
+    def solve_task(self, user_id: int, date: str, task: int):
+        self.cursor.execute(f"""UPDATE Tasks SET Task{task} = ? WHERE USER_ID = ? AND Data = ?""",
+                             (1, user_id, date))
+        
+        settings = self.get_settings(user_id)
+        self.cursor.execute(f"""UPDATE Settings SET TASK_AMOUNT = ? WHERE USER_ID = ?""",
+                             (settings[3] + 1, user_id))
         self.connection.commit()

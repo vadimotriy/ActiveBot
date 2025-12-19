@@ -1,5 +1,6 @@
 from aiogram import types, F, Router
 from aiogram.fsm.context import FSMContext
+from datetime import date
 from random import choice
 
 from Bot.database.constants import *
@@ -157,7 +158,7 @@ def callbacks(data: Data):
     
     # ежедневные задания (физическое благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*tasks*"))
-    async def advices(callback_query: types.CallbackQuery):
+    async def tasks_back(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
         user_id = color("id=" + str(id_user))
         command = color("Ежеденевные задания")
@@ -165,10 +166,79 @@ def callbacks(data: Data):
         try:
             tasks = get_tasks(id_user, data)
             text1 = "1) " + (f"<s>{tasks[2]}</s>" if tasks[1] == 1 else tasks[2]) + "\n"
-            text2 = "3) " + (f"<s>{tasks[4]}</s>" if tasks[3] == 1 else tasks[4]) + "\n"
-            text3 = "2) " + (f"<s>{tasks[6]}</s>" if tasks[5] == 1 else tasks[6])
+            text2 = "2) " + (f"<s>{tasks[4]}</s>" if tasks[3] == 1 else tasks[4]) + "\n"
+            text3 = "3) " + (f"<s>{tasks[6]}</s>" if tasks[5] == 1 else tasks[6])
 
-            buttons, backend = ANSWERS["tasks"]["inline"], ANSWERS["tasks"]["backend"]
+            buttons, backend = [], []
+            if tasks[1] == 0:
+                buttons.append("Выполнить задание №1")
+                backend.append("solve1")
+            if tasks[3] == 0:
+                buttons.append("Выполнить задание №2")
+                backend.append("solve2")
+            if tasks[5] == 0:
+                buttons.append("Выполнить задание №3")
+                backend.append("solve3")
+
+            buttons += ANSWERS["tasks"]["inline"]
+            backend += ANSWERS["tasks"]["backend"]
+
+            inline = make_inline(buttons, backend, 1, id_user)
+            total_text = ANSWERS["tasks"]["message"] + text1 + text2 + text3
+
+            await callback_query.message.edit_text(text=total_text, reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Физическое благополучие
+    @router_for_callbacks.callback_query(F.data.startswith("*physical*"))
+    async def physical_back(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Вернулся в физическое благополучие")
+
+        try:
+            inline = make_inline(ANSWERS["physical"]["inline"], ANSWERS["physical"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["physical"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Выполнение задания
+    @router_for_callbacks.callback_query(F.data.startswith("*solve"))
+    async def solve(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        task_num = int(str(callback_query.data)[6])
+        user_id = color("id=" + str(id_user))
+        command = color("Выполнение задания")
+
+        try:
+            data.solve_task(id_user, date.today(), task_num)
+
+            tasks = get_tasks(id_user, data)
+            text1 = "1) " + (f"<s>{tasks[2]}</s>" if tasks[1] == 1 else tasks[2]) + "\n"
+            text2 = "2) " + (f"<s>{tasks[4]}</s>" if tasks[3] == 1 else tasks[4]) + "\n"
+            text3 = "3) " + (f"<s>{tasks[6]}</s>" if tasks[5] == 1 else tasks[6])
+
+            buttons, backend = [], []
+            if tasks[1] == 0:
+                buttons.append("Выполнить задание №1")
+                backend.append("solve1")
+            if tasks[3] == 0:
+                buttons.append("Выполнить задание №2")
+                backend.append("solve2")
+            if tasks[5] == 0:
+                buttons.append("Выполнить задание №3")
+                backend.append("solve3")
+
+            buttons += ANSWERS["tasks"]["inline"]
+            backend += ANSWERS["tasks"]["backend"]
+
             inline = make_inline(buttons, backend, 1, id_user)
             total_text = ANSWERS["tasks"]["message"] + text1 + text2 + text3
 
