@@ -13,13 +13,14 @@ class Data:
             USER_ID INTEGER PRIMARY KEY,
             SWIMMING INTEGER NOT NULL,
             BICYCLE INTEGER NOT NULL,
-            DATE TEXT NOT NULL)
+            DATE TEXT NOT NULL,
+            TASK_AMOUNT INTEGER NOT NULL)
         """)
 
         # Таблица ежедневных заданий пользователей
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS Tasks (
-            USER_ID INTEGER PRIMARY KEY,
+            USER_ID INTEGER NOT NULL,
             Task1 INTEGER NOT NULL,
             Text1 TEXT NOT NULL,
             Task2 INTEGER NOT NULL,
@@ -34,8 +35,8 @@ class Data:
         all_users = self.cursor.execute('SELECT USER_ID FROM Settings').fetchall()
 
         if (user_id,) not in all_users:
-            self.cursor.execute('INSERT INTO Settings (USER_ID, SWIMMING, BICYCLE, DATE) VALUES (?, ?, ?, ?)',
-                                (user_id, 0, 0, date))
+            self.cursor.execute('INSERT INTO Settings (USER_ID, SWIMMING, BICYCLE, DATE, TASK_AMOUNT) VALUES (?, ?, ?, ?, ?)',
+                                (user_id, 0, 0, date, 0))
             self.connection.commit()
 
     # Изменние настроек о добавление плавания/велосипеда в ежедневные задания
@@ -45,7 +46,19 @@ class Data:
         self.connection.commit()
     
     # Получение данных об плавании и велосипеда в ежедневных заданиях, а также дату регистрации
-    def get_settings(self, user_id: int) -> tuple[int]:
-        result = self.cursor.execute('SELECT SWIMMING, BICYCLE, DATE FROM Settings '
+    def get_settings(self, user_id: int) -> tuple:
+        result = self.cursor.execute('SELECT SWIMMING, BICYCLE, DATE, TASK_AMOUNT FROM Settings '
                                       'WHERE USER_ID = ?', (user_id,)).fetchone()
         return result
+    
+    # Получение данных об заданиях пользователей на сегодняшний день
+    def get_tasks(self, user_id: int, date: str) -> list:
+        result = self.cursor.execute('SELECT * FROM Tasks '
+                                      'WHERE USER_ID = ? AND Data = ?', (user_id, date)).fetchall()
+
+        return result
+    
+    def add_tasks(self, user_id: int, date: str, tasks_text: list[str]):
+        self.cursor.execute('INSERT INTO Tasks (USER_ID, TASK1, TEXT1, TASK2, TEXT2, TASK3, TEXT3, DATA) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                             (user_id, 0, tasks_text[0], 0, tasks_text[1], 0, tasks_text[2], date))
+        self.connection.commit()

@@ -4,25 +4,12 @@ from random import choice
 
 from Bot.database.constants import *
 from Bot.database.database import Data
-from Bot.database.functions import color, make_inline, get_days
+from Bot.database.functions import color, get_days, get_tasks, make_inline
 from Bot.database.logger import logger
 
 router_for_callbacks = Router()
 
 def callbacks(data: Data):
-    # Ежедневные задания (физическое благополучие)
-    @router_for_callbacks.callback_query(F.data.startswith("*tasks*"))
-    async def tasks(callback_query: types.CallbackQuery):
-        id_user = int(callback_query.data.split("*")[2])
-        user_id = color("id=" + str(id_user))
-        command = color("Ежедневные задания")
-
-        try:
-            logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
-            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
     # Настройки (главное меню)
     @router_for_callbacks.callback_query(F.data.startswith("*settings*"))
     async def settings(callback_query: types.CallbackQuery):
@@ -125,7 +112,7 @@ def callbacks(data: Data):
             settings = data.get_settings(id_user)
             registration = f"Дата регистрации в боте: <i>{settings[2]}</i>\n"
             days = f"Дней в сервисе: <i>{get_days(settings[2])}</i>\n"
-            tasks = f"Выполнено ежедневных заданий: <i>0</i>"
+            tasks = f"Выполнено ежедневных заданий: <i>{settings[3]}</i>"
 
             text = ANSWERS["statistics"]["message"] + registration + days + tasks
             inline = make_inline(ANSWERS["statistics"]["inline"], ANSWERS["statistics"]["backend"], 1, id_user)
@@ -162,6 +149,30 @@ def callbacks(data: Data):
         try:
             advice = choice(ADVICES)
             await callback_query.answer(text=advice, show_alert=True)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # ежедневные задания (физическое благополучие)
+    @router_for_callbacks.callback_query(F.data.startswith("*tasks*"))
+    async def advices(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Ежеденевные задания")
+
+        try:
+            tasks = get_tasks(id_user, data)
+            text1 = "1) " + (f"<s>{tasks[2]}</s>" if tasks[1] == 1 else tasks[2]) + "\n"
+            text2 = "3) " + (f"<s>{tasks[4]}</s>" if tasks[3] == 1 else tasks[4]) + "\n"
+            text3 = "2) " + (f"<s>{tasks[6]}</s>" if tasks[5] == 1 else tasks[6])
+
+            buttons, backend = ANSWERS["tasks"]["inline"], ANSWERS["tasks"]["backend"]
+            inline = make_inline(buttons, backend, 1, id_user)
+            total_text = ANSWERS["tasks"]["message"] + text1 + text2 + text3
+
+            await callback_query.message.edit_text(text=total_text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         
