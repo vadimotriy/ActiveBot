@@ -10,7 +10,13 @@ from Bot.database.logger import logger
 
 router_for_callbacks = Router()
 
+
 def callbacks(data: Data):
+    physical_well_being(data)
+    social_well_being(data)
+
+
+def physical_well_being(data: Data):
     # Настройки (главное меню)
     @router_for_callbacks.callback_query(F.data.startswith("*settings*"))
     async def settings(callback_query: types.CallbackQuery):
@@ -243,6 +249,75 @@ def callbacks(data: Data):
             total_text = ANSWERS["tasks"]["message"] + text1 + text2 + text3
 
             await callback_query.message.edit_text(text=total_text, reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+
+
+def social_well_being(data: Data):
+    # Советы (социальное благополучие)
+    @router_for_callbacks.callback_query(F.data.startswith("*advices_social*"))
+    async def advices_social(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Советы по социальному благополучию")
+
+        try:
+            advice = choice(ADVICES_SOCIAL)
+            await callback_query.answer(text=advice, show_alert=True)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Таймер (социальное благополучие)
+    @router_for_callbacks.callback_query(F.data.startswith("*timer*"))
+    async def timer(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Таймер")
+
+        try:
+            inline = make_inline(ANSWERS["timer"]["inline"], ANSWERS["timer"]["backend"], 2, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["timer"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Социальное благополучие
+    @router_for_callbacks.callback_query(F.data.startswith("*social*"))
+    async def social_back(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Вернулся в социальное благополучие")
+
+        try:
+            inline = make_inline(ANSWERS["social"]["inline"], ANSWERS["social"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["social"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Таймер - засекаем время
+    @router_for_callbacks.callback_query(F.data.startswith("*seconds"))
+    async def timer_after(callback_query: types.CallbackQuery, state: FSMContext):
+        num = int(callback_query.data.split("*")[1][7:])
+
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Засекаем время")
+
+        try:
+            await callback_query.message.edit_text(text=ANSWERS["timer_after"]["message"], reply_markup=None)
+            await state.set_state(Timer.reason)
+            await state.update_data(time=num)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         

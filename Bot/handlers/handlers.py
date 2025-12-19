@@ -1,7 +1,8 @@
+import asyncio
+
 from aiogram import types, F, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-
 from datetime import date
 
 from Bot.database.constants import *
@@ -54,6 +55,46 @@ def handlers(data: Data):
         try:
             inline = make_inline(ANSWERS["menu"]["inline"], ANSWERS["menu"]["backend"], 1, message.from_user.id)
             await message.answer(text=ANSWERS["menu"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Переход в социальное благополучие
+    @router.message(F.text == "Социальное благополучие")
+    async def menu(message: types.Message):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Социальное благополучие")
+
+        try:
+            inline = make_inline(ANSWERS["social"]["inline"], ANSWERS["social"]["backend"], 1, message.from_user.id)
+            await message.answer(text=ANSWERS["social"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Таймер - его активация
+    @router.message(Timer.reason, F.text)
+    async def menu(message: types.Message, state: FSMContext):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Активация таймера")
+
+        try:
+            reason = message.text
+            data = await state.get_data()
+            time = data["time"] // 60
+            hour = False
+            if time >= 60:
+                time //= 60
+                hour = True
+            
+            text = str(time) + (" часов" if hour else " минут")
+            await message.answer(text=f"Через <b>{text}</b> вам придет напоминание. Ожидайте.")
+            await asyncio.sleep(data["time"] / 100)
+            await message.answer(text=ANSWERS["timer_after"]["push_message"] + reason)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         
