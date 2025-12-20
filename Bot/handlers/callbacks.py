@@ -323,3 +323,39 @@ def social_well_being(data: Data):
         
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Тест (социальное благополучие)
+    @router_for_callbacks.callback_query(F.data.startswith("*test*"))
+    async def test(callback_query: types.CallbackQuery, state: FSMContext):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Начал проходить тест")
+
+        try:
+            await callback_query.message.edit_text(text=ANSWERS["test"]["message1"], reply_markup=None)
+            await state.set_state(Test.interests)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Тест - ответил на 3-ий вопрос
+    @router_for_callbacks.callback_query(Test.people, F.data.startswith("*answer"))
+    async def test3(callback_query: types.CallbackQuery, state: FSMContext):
+        id_user = int(callback_query.data.split("*")[2])
+        num1, num2 = int(callback_query.data.split("*")[1][6]), int(callback_query.data.split("*")[1][7])
+        user_id = color("id=" + str(id_user))
+        command = color("Ответил на 3-ий вопрос")
+
+        try:
+            text = TEST[(num1, num2)]
+            await state.update_data(people=text)
+
+            await callback_query.message.edit_text(text=ANSWERS["test"]["message4"], reply_markup=None)
+            await state.set_state(Test.problems)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")

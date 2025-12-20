@@ -5,7 +5,7 @@ from aiogram.types import InlineKeyboardButton, KeyboardButton
 from random import randint, choice
 
 from Bot.database.database import Data
-from Bot.database.constants import TASKS
+from Bot.database.constants import TASKS, BASE_PROMT
 
 # Функция для создания клавиатуры
 def make_keyboard(buttons: list[str], adjust: int):
@@ -77,3 +77,4 @@ def generate_tasks(user_id: int, data: Data, date: str):
         res_list.append(task["activity"].capitalize() + " – " + task["description"].lower())
     
     data.add_tasks(user_id, date, res_list)
+

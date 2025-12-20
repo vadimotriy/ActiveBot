@@ -5,6 +5,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from datetime import date
 
+from Bot.database.ai import *
 from Bot.database.constants import *
 from Bot.database.database import Data
 from Bot.database.functions import make_keyboard, make_inline, color
@@ -93,8 +94,65 @@ def handlers(data: Data):
             
             text = str(time) + (" часов" if hour else " минут")
             await message.answer(text=f"Через <b>{text}</b> вам придет напоминание. Ожидайте.")
-            await asyncio.sleep(data["time"] / 100)
+            await asyncio.sleep(data["time"])
             await message.answer(text=ANSWERS["timer_after"]["push_message"] + reason)
+            await state.clear()
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Тест - ответил на 1-ый вопрос
+    @router.message(Test.interests, F.text)
+    async def test1(message: types.Message, state: FSMContext):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Ответил на 1-ый вопрос теста")
+
+        try:
+            await state.update_data(interests=message.text)
+            await message.answer(text=ANSWERS["test"]["message2"])
+            await state.set_state(Test.subjects)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Тест - ответил на 2-ой вопрос
+    @router.message(Test.subjects, F.text)
+    async def test2(message: types.Message, state: FSMContext):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Ответил на 2-ой вопрос теста")
+
+        try:
+            await state.update_data(subjects=message.text)
+            inline = make_inline(ANSWERS["test"]["inline3"], ANSWERS["test"]["backend3"], 2, message.from_user.id)
+            await message.answer(text=ANSWERS["test"]["message3"], reply_markup=inline)
+            await state.set_state(Test.people)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Тест - ответил на 4-ой вопрос, финал
+    @router.message(Test.problems, F.text)
+    async def test4(message: types.Message, state: FSMContext):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Ответил на 4-ый вопрос теста")
+
+        try:
+            data = await state.get_data()
+            interests, subjects = data["interests"], data["subjects"]
+            people, problems = data["people"], message.text
+            prompt = get_promt(interests, subjects, people, problems)
+
+            await state.clear()
+            await message.answer(ANSWERS["test"]["message5"])
+
+            text = await openrouter_request(prompt=prompt, api_key=API_OPEN_ROUTER,)
+            await message.answer(text)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         
