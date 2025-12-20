@@ -51,7 +51,7 @@ def admin(data: Data, bot: Bot):
     # Вечернее апоминание об ежедневных заданий
     # Срабатывает если пользователь не выполнил хотя бы одно задание
     @router_for_admin.message(F.text, Command("push_evening"))
-    async def push_day(message: types.Message):
+    async def push_evening(message: types.Message):
         user_id = color("id=" + str(message.from_user.id))
         command = color("/push_evening")
 
