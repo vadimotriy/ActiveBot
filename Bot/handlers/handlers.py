@@ -151,7 +151,7 @@ def handlers(data: Data):
             await state.clear()
             await message.answer(ANSWERS["test"]["message5"])
 
-            text = await openrouter_request(prompt=prompt, api_key=API_OPEN_ROUTER,)
+            text = await openrouter_request(prompt=prompt, api_key=API_OPEN_ROUTER)
             await message.answer(text)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")

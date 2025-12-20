@@ -14,7 +14,7 @@ async def openrouter_request(prompt: str, api_key: str):
     }
 
     payload = {
-        "model": "qwen/qwen3-235b-a22b:free",
+        "model": "xiaomi/mimo-v2-flash:free",
         "messages": [
             {
                 "role": "user",
@@ -29,8 +29,8 @@ async def openrouter_request(prompt: str, api_key: str):
                 result = await response.json()
                 return result["choices"][0]["message"]["content"]
             else:
-                error_text = await response.text()
-                raise Exception(f"OpenRouter error {response.status}: {error_text}")
+                # Пробуем еще раз, так как это бесплатное API и оно может иногда давать сбои
+                return openrouter_request(prompt, api_key)
 
 # Функция для получения промта для профориентационного теста
 def get_promt(interests: str, subjects: str, people: str, problems: str) -> str:
