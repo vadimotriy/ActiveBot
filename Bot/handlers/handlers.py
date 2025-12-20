@@ -158,3 +158,18 @@ def handlers(data: Data):
         
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Категория психологического благополучия
+    @router.message(F.text == "Психологическое благополучие")
+    async def psyhology(message: types.Message):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("Психологическое благополучие")
+
+        try:
+            inline = make_inline(ANSWERS["psyhology"]["inline"], ANSWERS["psyhology"]["backend"], 1, user_id)
+            await message.answer(text=ANSWERS["psyhology"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
