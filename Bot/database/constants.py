@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv("Bot/data/.env")
 API_TOKEN = os.getenv("API_KEY")
 API_OPEN_ROUTER = os.getenv("API_OPEN_ROUTER")
+ADMIN = os.getenv("ADMIN")
 
 # Загрзука готовых ответов
 with open("Bot/data/answers.json", encoding="utf-8") as json_file:

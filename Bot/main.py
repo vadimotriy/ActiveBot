@@ -6,9 +6,10 @@ from aiogram.enums import ParseMode
 
 from Bot.database.database import Data
 from Bot.database.constants import API_TOKEN
-from Bot.database.logger import logger
+from Bot.functions.logger import logger
 from Bot.handlers.handlers import router, handlers
 from Bot.handlers.callbacks import router_for_callbacks, callbacks
+from Bot.handlers.admin import router_for_admin, admin
 
 bot = Bot(token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
@@ -18,9 +19,11 @@ data = Data()
 if __name__ == "__main__":
     handlers(data)
     callbacks(data)
+    admin(data, bot)
 
     dp.include_router(router)
     dp.include_router(router_for_callbacks)
+    dp.include_router(router_for_admin)
 
     logger.info("Бот запущен")
 

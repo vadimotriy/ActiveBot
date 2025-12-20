@@ -5,8 +5,8 @@ from random import choice
 
 from Bot.database.constants import *
 from Bot.database.database import Data
-from Bot.database.functions import color, get_days, get_tasks, make_inline
-from Bot.database.logger import logger
+from Bot.functions.functions import color, get_days, get_tasks, make_inline
+from Bot.functions.logger import logger
 
 router_for_callbacks = Router()
 

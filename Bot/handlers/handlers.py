@@ -5,11 +5,11 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from datetime import date
 
-from Bot.database.ai import *
+from Bot.functions.ai import *
 from Bot.database.constants import *
 from Bot.database.database import Data
-from Bot.database.functions import make_keyboard, make_inline, color
-from Bot.database.logger import logger
+from Bot.functions.functions import make_keyboard, make_inline, color
+from Bot.functions.logger import logger
 
 router = Router()
 
