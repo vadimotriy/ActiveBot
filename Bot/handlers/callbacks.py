@@ -359,3 +359,18 @@ def social_well_being(data: Data):
         
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+
+
+def psyhological(data: Data):
+    @router_for_callbacks.callback_query(F.data.startswith("*sos*"))
+    async def sos(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("sos")
+
+        try:
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
