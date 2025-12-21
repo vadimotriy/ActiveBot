@@ -394,3 +394,67 @@ def psyhological_well_being(data: Data):
         
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Навигатор помощи
+    @router_for_callbacks.callback_query(F.data.startswith("*help*"))
+    async def help(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Навигатор помощи")
+
+        try:
+            inline = make_inline(ANSWERS["help"]["inline"], ANSWERS["help"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["help"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Булинг (навигатор помощи)
+    @router_for_callbacks.callback_query(F.data.startswith("*bulling*"))
+    async def bulling(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Буллинг")
+
+        try:
+            inline = make_inline(ANSWERS["bulling"]["inline"], ANSWERS["bulling"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["bulling"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Конфликты с родителями (навигатор помощи)
+    @router_for_callbacks.callback_query(F.data.startswith("*conflicts*"))
+    async def conflicts(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Конфликты с родителями")
+
+        try:
+            inline = make_inline(ANSWERS["conflicts"]["inline"], ANSWERS["conflicts"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["conflicts"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Стресс перед экзаменом (навигатор помощи)
+    @router_for_callbacks.callback_query(F.data.startswith("*stress*"))
+    async def stress(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Стресс перед экзаменом")
+
+        try:
+            inline = make_inline(ANSWERS["stress"]["inline"], ANSWERS["stress"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["stress"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
