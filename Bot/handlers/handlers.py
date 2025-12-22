@@ -21,6 +21,12 @@ def handlers(data: Data):
         user_id = color("id=" + str(message.from_user.id))
         command = color("/start")
 
+        data.set_dairy(message.from_user.id, date.today(), "very_happy", 1)
+        data.set_dairy(message.from_user.id, date.today(), "happy", 2)
+        data.set_dairy(message.from_user.id, date.today(), "normal", 0)
+        data.set_dairy(message.from_user.id, date.today(), "sad", 1)
+        data.set_dairy(message.from_user.id, date.today(), "very_sad", 0)
+
         try:
             data.add_user(message.from_user.id, date.today())
 
