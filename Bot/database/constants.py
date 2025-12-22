@@ -2,7 +2,7 @@ import json
 import os
 from dotenv import load_dotenv
 
-# Загружаем данные из .env 
+# Загружаем данные из .env
 load_dotenv("Bot/data/.env")
 API_TOKEN = os.getenv("API_KEY")
 API_OPEN_ROUTER = os.getenv("API_OPEN_ROUTER")
@@ -27,9 +27,11 @@ with open("Bot/data/advices_social.json", encoding="utf-8") as json_file:
 
 from aiogram.fsm.state import StatesGroup, State
 
+
 # State, для того чтобы пользователь мог ответить нам
 class Timer(StatesGroup):
     reason = State()
+
 
 class Test(StatesGroup):
     interests = State()
@@ -43,16 +45,10 @@ TEST = {
     (0, 1): "Пользователь не умеет работать с людьми, но хочет.",
     (1, 0): "Пользователь умеет работать с людьми, но не хочет.",
     (1, 1): "Пользователь умеет работать с людьми и хочет.",
-    (2, 2): "Пользователь еще не определился - хочет ли он работать с людьми."
+    (2, 2): "Пользователь еще не определился - хочет ли он работать с людьми.",
 }
 
-DAIRY_INDEX = {
-    "very_happy": 1,
-    "happy": 2,
-    "normal": 3,
-    "sad": 4,
-    "very_sad": 5
-}
+DAIRY_INDEX = {"very_happy": 1, "happy": 2, "normal": 3, "sad": 4, "very_sad": 5}
 
 # Основа для промта
 BASE_PROMT = """Пользователь, только что прошел профориентационный тест, ему нужно дать ответы по тому, как он его прошел. 

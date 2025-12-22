@@ -23,15 +23,15 @@ def handlers(data: Data):
 
         try:
             data.add_user(message.from_user.id, date.today())
-            
+
             keyboard = make_keyboard(ANSWERS["start"]["keyboard"], 1)
             await message.answer(text=ANSWERS["start"]["message"], reply_markup=keyboard)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Переход в меню физического благополучия
     @router.message(F.text == "Физическое благополучие")
     async def physical(message: types.Message):
@@ -43,10 +43,10 @@ def handlers(data: Data):
             await message.answer(text=ANSWERS["physical"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Переход в главное меню
     @router.message(F.text == "Главное меню")
     async def menu(message: types.Message):
@@ -58,10 +58,10 @@ def handlers(data: Data):
             await message.answer(text=ANSWERS["menu"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Переход в социальное благополучие
     @router.message(F.text == "Социальное благополучие")
     async def menu(message: types.Message):
@@ -73,10 +73,10 @@ def handlers(data: Data):
             await message.answer(text=ANSWERS["social"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Таймер - его активация
     @router.message(Timer.reason, F.text)
     async def menu(message: types.Message, state: FSMContext):
@@ -91,7 +91,7 @@ def handlers(data: Data):
             if time >= 60:
                 time //= 60
                 hour = True
-            
+
             text = str(time) + (" часов" if hour else " минут")
             await message.answer(text=f"Через <b>{text}</b> вам придет напоминание. Ожидайте.")
             await asyncio.sleep(data["time"])
@@ -99,10 +99,10 @@ def handlers(data: Data):
             await state.clear()
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Тест - ответил на 1-ый вопрос
     @router.message(Test.interests, F.text)
     async def test1(message: types.Message, state: FSMContext):
@@ -115,10 +115,10 @@ def handlers(data: Data):
             await state.set_state(Test.subjects)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Тест - ответил на 2-ой вопрос
     @router.message(Test.subjects, F.text)
     async def test2(message: types.Message, state: FSMContext):
@@ -132,10 +132,10 @@ def handlers(data: Data):
             await state.set_state(Test.people)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Тест - ответил на 4-ой вопрос, финал
     @router.message(Test.problems, F.text)
     async def test4(message: types.Message, state: FSMContext):
@@ -155,10 +155,10 @@ def handlers(data: Data):
             await message.answer(text)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Категория психологического благополучия
     @router.message(F.text == "Психологическое благополучие")
     async def psyhology(message: types.Message):
@@ -166,10 +166,12 @@ def handlers(data: Data):
         command = color("Психологическое благополучие")
 
         try:
-            inline = make_inline(ANSWERS["psyhology"]["inline"], ANSWERS["psyhology"]["backend"], 1, message.from_user.id)
+            inline = make_inline(
+                ANSWERS["psyhology"]["inline"], ANSWERS["psyhology"]["backend"], 1, message.from_user.id
+            )
             await message.answer(text=ANSWERS["psyhology"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")

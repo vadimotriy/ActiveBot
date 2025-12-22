@@ -29,11 +29,19 @@ def main_menu(data: Data):
         try:
             settings = data.get_settings(id_user)
             text1 = ("включить" if settings[0] == 0 else "выключить") + " задания на плавание"
-            answer_text1 = (("❌" if settings[0] == 0 else "✅") + 
-            " задания на плавание <b>" + ("отключены" if settings[0] == 0 else "включены") + "</b>\n")
+            answer_text1 = (
+                ("❌" if settings[0] == 0 else "✅")
+                + " задания на плавание <b>"
+                + ("отключены" if settings[0] == 0 else "включены")
+                + "</b>\n"
+            )
             text2 = ("включить" if settings[1] == 0 else "выключить") + " задания на велосипед"
-            answer_text2 = (("❌" if settings[1] == 0 else "✅") + 
-            " задания на велосипед <b>" + ("отключены" if settings[1] == 0 else "включены") + "</b>\n")
+            answer_text2 = (
+                ("❌" if settings[1] == 0 else "✅")
+                + " задания на велосипед <b>"
+                + ("отключены" if settings[1] == 0 else "включены")
+                + "</b>\n"
+            )
 
             buttons = [text1, text2] + ANSWERS["settings"]["inline"]
             inline = make_inline(buttons, ANSWERS["settings"]["backend"], 1, id_user)
@@ -42,10 +50,10 @@ def main_menu(data: Data):
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Изменение настроек о добавление плавания в ежедневные задания
     @router_for_callbacks.callback_query(F.data.startswith("*swimming*"))
     async def swimming(callback_query: types.CallbackQuery):
@@ -61,11 +69,19 @@ def main_menu(data: Data):
 
             settings = data.get_settings(id_user)
             text1 = ("включить" if settings[0] == 0 else "выключить") + " задания на плавание"
-            answer_text1 = (("❌" if settings[0] == 0 else "✅") + 
-            " задания на плавание <b>" + ("отключены" if settings[0] == 0 else "включены") + "</b>\n")
+            answer_text1 = (
+                ("❌" if settings[0] == 0 else "✅")
+                + " задания на плавание <b>"
+                + ("отключены" if settings[0] == 0 else "включены")
+                + "</b>\n"
+            )
             text2 = ("включить" if settings[1] == 0 else "выключить") + " задания на велосипед"
-            answer_text2 = (("❌" if settings[1] == 0 else "✅") + 
-            " задания на велосипед <b>" + ("отключены" if settings[1] == 0 else "включены") + "</b>\n")
+            answer_text2 = (
+                ("❌" if settings[1] == 0 else "✅")
+                + " задания на велосипед <b>"
+                + ("отключены" if settings[1] == 0 else "включены")
+                + "</b>\n"
+            )
 
             buttons = [text1, text2] + ANSWERS["settings"]["inline"]
             inline = make_inline(buttons, ANSWERS["settings"]["backend"], 1, id_user)
@@ -74,10 +90,10 @@ def main_menu(data: Data):
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Изменение настроек о добавление велосипеда в ежедневные задания
     @router_for_callbacks.callback_query(F.data.startswith("*bicycle*"))
     async def bicycle(callback_query: types.CallbackQuery):
@@ -93,11 +109,19 @@ def main_menu(data: Data):
 
             settings = data.get_settings(id_user)
             text1 = ("включить" if settings[0] == 0 else "выключить") + " задания на плавание"
-            answer_text1 = (("❌" if settings[0] == 0 else "✅") + 
-            " задания на плавание <b>" + ("отключены" if settings[0] == 0 else "включены") + "</b>\n")
+            answer_text1 = (
+                ("❌" if settings[0] == 0 else "✅")
+                + " задания на плавание <b>"
+                + ("отключены" if settings[0] == 0 else "включены")
+                + "</b>\n"
+            )
             text2 = ("включить" if settings[1] == 0 else "выключить") + " задания на велосипед"
-            answer_text2 = (("❌" if settings[1] == 0 else "✅") + 
-            " задания на велосипед <b>" + ("отключены" if settings[1] == 0 else "включены") + "</b>\n")
+            answer_text2 = (
+                ("❌" if settings[1] == 0 else "✅")
+                + " задания на велосипед <b>"
+                + ("отключены" if settings[1] == 0 else "включены")
+                + "</b>\n"
+            )
 
             buttons = [text1, text2] + ANSWERS["settings"]["inline"]
             inline = make_inline(buttons, ANSWERS["settings"]["backend"], 1, id_user)
@@ -106,10 +130,10 @@ def main_menu(data: Data):
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Данные о статистике
     @router_for_callbacks.callback_query(F.data.startswith("*statistics*"))
     async def statistics(callback_query: types.CallbackQuery):
@@ -129,16 +153,15 @@ def main_menu(data: Data):
                 dairy = dairy[0]
                 dairy_text = f"Дневник настроения:\n☺️: {dairy[1]}\n🙂: {dairy[2]}\n😐: {dairy[3]}\n🙁: {dairy[4]}\n😞: {dairy[5]}\n"
 
-
             text = ANSWERS["statistics"]["message"] + registration + days + tasks + dairy_text
             inline = make_inline(ANSWERS["statistics"]["inline"], ANSWERS["statistics"]["backend"], 1, id_user)
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Возвращение в главное меню
     @router_for_callbacks.callback_query(F.data.startswith("*menu*"))
     async def menu_back(callback_query: types.CallbackQuery):
@@ -151,8 +174,8 @@ def main_menu(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["menu"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
 
 
@@ -169,10 +192,10 @@ def physical_well_being(data: Data):
             await callback_query.answer(text=advice, show_alert=True)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Ежедневные задания (физическое благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*tasks*"))
     async def tasks_back(callback_query: types.CallbackQuery):
@@ -206,10 +229,10 @@ def physical_well_being(data: Data):
             await callback_query.message.edit_text(text=total_text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Возвращение в физическое благополучие
     @router_for_callbacks.callback_query(F.data.startswith("*physical*"))
     async def physical_back(callback_query: types.CallbackQuery):
@@ -222,10 +245,10 @@ def physical_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["physical"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Выполнение задания
     @router_for_callbacks.callback_query(F.data.startswith("*solve"))
     async def solve(callback_query: types.CallbackQuery):
@@ -262,8 +285,8 @@ def physical_well_being(data: Data):
             await callback_query.message.edit_text(text=total_text, reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
 
 
@@ -280,10 +303,10 @@ def social_well_being(data: Data):
             await callback_query.answer(text=advice, show_alert=True)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Таймер (социальное благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*timer*"))
     async def timer(callback_query: types.CallbackQuery):
@@ -296,10 +319,10 @@ def social_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["timer"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Социальное благополучие
     @router_for_callbacks.callback_query(F.data.startswith("*social*"))
     async def social_back(callback_query: types.CallbackQuery):
@@ -312,10 +335,10 @@ def social_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["social"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Таймер - засекаем время
     @router_for_callbacks.callback_query(F.data.startswith("*seconds"))
     async def timer_after(callback_query: types.CallbackQuery, state: FSMContext):
@@ -331,10 +354,10 @@ def social_well_being(data: Data):
             await state.update_data(time=num)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Тест (социальное благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*test*"))
     async def test(callback_query: types.CallbackQuery, state: FSMContext):
@@ -347,10 +370,10 @@ def social_well_being(data: Data):
             await state.set_state(Test.interests)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Тест - ответил на 3-ий вопрос
     @router_for_callbacks.callback_query(Test.people, F.data.startswith("*answer"))
     async def test3(callback_query: types.CallbackQuery, state: FSMContext):
@@ -360,15 +383,15 @@ def social_well_being(data: Data):
         command = color("Ответил на 3-ий вопрос")
 
         try:
-            text = TEST[(num1, num2)]
+            text = TEST_DICT[(num1, num2)]
             await state.update_data(people=text)
 
             await callback_query.message.edit_text(text=ANSWERS["test"]["message4"], reply_markup=None)
             await state.set_state(Test.problems)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
 
 
@@ -385,8 +408,8 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["psyhology"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
 
     # Функция SOS
@@ -401,10 +424,10 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["sos"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Навигатор помощи
     @router_for_callbacks.callback_query(F.data.startswith("*help*"))
     async def help(callback_query: types.CallbackQuery):
@@ -417,10 +440,10 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["help"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Буллинг (навигатор помощи)
     @router_for_callbacks.callback_query(F.data.startswith("*bulling*"))
     async def bulling(callback_query: types.CallbackQuery):
@@ -433,10 +456,10 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["bulling"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Конфликты с родителями (навигатор помощи)
     @router_for_callbacks.callback_query(F.data.startswith("*conflicts*"))
     async def conflicts(callback_query: types.CallbackQuery):
@@ -449,10 +472,10 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["conflicts"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Стресс перед экзаменом (навигатор помощи)
     @router_for_callbacks.callback_query(F.data.startswith("*stress*"))
     async def stress(callback_query: types.CallbackQuery):
@@ -465,10 +488,10 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["stress"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Дневник настроения (навигатор помощи)
     @router_for_callbacks.callback_query(F.data.startswith("*dairy*"))
     async def dairy(callback_query: types.CallbackQuery):
@@ -481,10 +504,10 @@ def psyhological_well_being(data: Data):
             await callback_query.message.edit_text(text=ANSWERS["dairy"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Дневник настроения - выбор эмодзи (навигатор помощи)
     @router_for_callbacks.callback_query(F.data.startswith("*dairy_"))
     async def dairy_update(callback_query: types.CallbackQuery):
@@ -507,6 +530,6 @@ def psyhological_well_being(data: Data):
             await callback_query.answer(text=ANSWERS["dairy"]["message_after1"], show_alert=True)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")

@@ -4,6 +4,7 @@ import asyncio
 
 from Bot.database.constants import BASE_PROMT
 
+
 # асинхронная функция для запроса к API
 async def openrouter_request(prompt: str, api_key: str):
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -13,15 +14,7 @@ async def openrouter_request(prompt: str, api_key: str):
         "Content-Type": "application/json",
     }
 
-    payload = {
-        "model": "xiaomi/mimo-v2-flash:free",
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    }
+    payload = {"model": "xiaomi/mimo-v2-flash:free", "messages": [{"role": "user", "content": prompt}]}
 
     async with aiohttp.ClientSession() as session:
         async with session.post(url, headers=headers, data=json.dumps(payload)) as response:
@@ -31,6 +24,7 @@ async def openrouter_request(prompt: str, api_key: str):
             else:
                 # Пробуем еще раз, так как это бесплатное API и оно может иногда давать сбои
                 return openrouter_request(prompt, api_key)
+
 
 # Функция для получения промта для профориентационного теста
 def get_promt(interests: str, subjects: str, people: str, problems: str) -> str:

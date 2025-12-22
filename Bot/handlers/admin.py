@@ -38,22 +38,21 @@ def admin(data: Data, bot: Bot):
                             try:
                                 await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
                                 num += 1
-                            except Exception as e: # случай - если пользователь заблокировал бота
+                            except Exception as e:  # случай - если пользователь заблокировал бота
                                 pass
                     else:
                         try:
                             await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
                             num += 1
-                        except Exception as e: # случай - если пользователь заблокировал бота
-                                pass
-
+                        except Exception as e:  # случай - если пользователь заблокировал бота
+                            pass
 
                 await message.answer(text=ANSWERS["push"]["message_admin"] + f"{num} сообщений.")
                 logger.info(f"АДМИН с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"АДМИН с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Вечернее напоминание об ежедневных заданий
     # Срабатывает если пользователь не выполнил хотя бы одно задание
     @router_for_admin.message(F.text, Command("push_evening"))
@@ -77,28 +76,27 @@ def admin(data: Data, bot: Bot):
                             try:
                                 await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
                                 num += 1
-                            except Exception as e: # случай - если пользователь заблокировал бота
+                            except Exception as e:  # случай - если пользователь заблокировал бота
                                 pass
                         elif any((not info[1], not info[3], not info[5])):
                             try:
                                 await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_evening"])
                                 num += 1
-                            except Exception as e: # случай - если пользователь заблокировал бота
+                            except Exception as e:  # случай - если пользователь заблокировал бота
                                 pass
                     else:
                         try:
                             await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
                             num += 1
-                        except Exception as e: # случай - если пользователь заблокировал бота
+                        except Exception as e:  # случай - если пользователь заблокировал бота
                             pass
-
 
                 await message.answer(text=ANSWERS["push"]["message_admin"] + f"{num} сообщений.")
                 logger.info(f"АДМИН с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"АДМИН с {user_id} активировал {command}\nОшибка: {e}")
-    
+
     # Вечернее напоминание об дневнике настроения
     # Срабатывает если пользователь не отметил свое настроение
     @router_for_admin.message(F.text, Command("push_dairy"))
@@ -122,18 +120,17 @@ def admin(data: Data, bot: Bot):
                             try:
                                 await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_dairy"])
                                 num += 1
-                            except Exception as e: # случай - если пользователь заблокировал бота
+                            except Exception as e:  # случай - если пользователь заблокировал бота
                                 pass
                     else:
                         try:
                             await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_dairy"])
                             num += 1
-                        except Exception as e: # случай - если пользователь заблокировал бота
+                        except Exception as e:  # случай - если пользователь заблокировал бота
                             pass
-
 
                 await message.answer(text=ANSWERS["push"]["message_admin"] + f"{num} сообщений.")
                 logger.info(f"АДМИН с {user_id} активировал {command}")
-        
-        except Exception as e: # на случай непредвиденной ошибки
+
+        except Exception as e:  # на случай непредвиденной ошибки
             logger.error(f"АДМИН с {user_id} активировал {command}\nОшибка: {e}")
