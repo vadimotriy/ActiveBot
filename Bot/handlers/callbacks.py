@@ -12,12 +12,13 @@ router_for_callbacks = Router()
 
 
 def callbacks(data: Data):
+    main_menu(data)
     physical_well_being(data)
     social_well_being(data)
     psyhological_well_being(data)
 
 
-def physical_well_being(data: Data):
+def main_menu(data: Data):
     # Настройки (главное меню)
     @router_for_callbacks.callback_query(F.data.startswith("*settings*"))
     async def settings(callback_query: types.CallbackQuery):
@@ -118,11 +119,18 @@ def physical_well_being(data: Data):
 
         try:
             settings = data.get_settings(id_user)
+            dairy = data.get_dairy(id_user)
+
             registration = f"Дата регистрации в боте: <i>{settings[2]}</i>\n"
             days = f"Дней в сервисе: <i>{get_days(settings[2])}</i>\n"
-            tasks = f"Выполнено ежедневных заданий: <i>{settings[3]}</i>"
+            tasks = f"Выполнено ежедневных заданий: <i>{settings[3]}</i>\n\n"
+            dairy_text = f"В дневнике настроения записей пока нет."
+            if dairy:
+                dairy = dairy[0]
+                dairy_text = f"Дневник настроения:\n☺️: {dairy[1]}\n🙂: {dairy[2]}\n😐: {dairy[3]}\n🙁: {dairy[4]}\n😞: {dairy[5]}\n"
 
-            text = ANSWERS["statistics"]["message"] + registration + days + tasks
+
+            text = ANSWERS["statistics"]["message"] + registration + days + tasks + dairy_text
             inline = make_inline(ANSWERS["statistics"]["inline"], ANSWERS["statistics"]["backend"], 1, id_user)
             await callback_query.message.edit_text(text=text, reply_markup=inline)
 
@@ -146,7 +154,9 @@ def physical_well_being(data: Data):
         
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
-    
+
+
+def physical_well_being(data: Data):
     # советы (физическое благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*advices*"))
     async def advices(callback_query: types.CallbackQuery):
@@ -453,6 +463,48 @@ def psyhological_well_being(data: Data):
         try:
             inline = make_inline(ANSWERS["stress"]["inline"], ANSWERS["stress"]["backend"], 1, id_user)
             await callback_query.message.edit_text(text=ANSWERS["stress"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Дневник настроения (навигатор помощи)
+    @router_for_callbacks.callback_query(F.data.startswith("*dairy*"))
+    async def dairy(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Дневник настроения")
+
+        try:
+            inline = make_inline(ANSWERS["dairy"]["inline"], ANSWERS["dairy"]["backend"], 5, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["dairy"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Дневник настроения - выбор эмодзи (навигатор помощи)
+    @router_for_callbacks.callback_query(F.data.startswith("*dairy_"))
+    async def dairy_update(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        emotion = callback_query.data.split("*")[1][6:]
+        user_id = color("id=" + str(id_user))
+        command = color("Дневник настроения - выбор эмодзи")
+
+        try:
+            info = data.get_dairy(id_user)
+            if info == []:
+                value = 1
+            else:
+                value = 1 + info[0][DAIRY_INDEX[emotion]]
+                if info[0][6] == str(date.today()):
+                    await callback_query.answer(text=ANSWERS["dairy"]["message_after2"], show_alert=True)
+                    return
+
+            data.set_dairy(id_user, date.today(), emotion, value)
+            await callback_query.answer(text=ANSWERS["dairy"]["message_after1"], show_alert=True)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         

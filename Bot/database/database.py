@@ -29,6 +29,18 @@ class Data:
             Text3 TEXT NOT NULL,
             Data TEXT NOT NULL)
         """)
+
+        # Таблица дневника настроения пользователей
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Dairy (
+            USER_ID INTEGER NOT NULL,
+            VERY_HAPPY INTEGER NOT NULL,
+            HAPPY INTEGER NOT NULL,
+            NORMAL INTEGER NOT NULL,
+            SAD INTEGER NOT NULL,
+            VERY_SAD INTEGER NOT NULL,  
+            Data TEXT NOT NULL)
+        """)
     
     # Добавление новго пользователя в БД 
     def add_user(self, user_id: int, date: str):
@@ -76,3 +88,18 @@ class Data:
         all_users = self.cursor.execute("SELECT USER_ID FROM Settings").fetchall()
 
         return all_users
+
+    def get_dairy(self, user_id: int) -> tuple:
+        all_users = self.cursor.execute("SELECT * FROM Dairy WHERE USER_ID = ?", (user_id,)).fetchall()
+
+        return all_users
+
+    def set_dairy(self, user_id: int, date: str, emotion: str, value: int) -> tuple:
+        if not self.get_dairy(user_id):
+            self.cursor.execute("INSERT INTO Dairy (USER_ID, VERY_HAPPY, HAPPY, NORMAL, SAD, VERY_SAD, DATA) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                                (user_id, 0, 0, 0, 0, 0, date))
+            self.connection.commit()
+
+        self.cursor.execute(f"UPDATE Dairy SET {emotion.upper()} = ? WHERE USER_ID = ?",
+                             (value, user_id))
+        self.connection.commit()
