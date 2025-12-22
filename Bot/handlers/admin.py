@@ -15,7 +15,7 @@ router_for_admin = Router()
 
 
 def admin(data: Data, bot: Bot):
-    # Днневное апоминание об ежедневных заданий
+    # Дневное напоминание об ежедневных заданий
     # Срабатывает если пользователь не выполнил ни одного задания
     @router_for_admin.message(F.text, Command("push_day"))
     async def push_day(message: types.Message):
@@ -54,7 +54,7 @@ def admin(data: Data, bot: Bot):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"АДМИН с {user_id} активировал {command}\nОшибка: {e}")
     
-    # Вечернее апоминание об ежедневных заданий
+    # Вечернее напоминание об ежедневных заданий
     # Срабатывает если пользователь не выполнил хотя бы одно задание
     @router_for_admin.message(F.text, Command("push_evening"))
     async def push_evening(message: types.Message):
@@ -99,7 +99,7 @@ def admin(data: Data, bot: Bot):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"АДМИН с {user_id} активировал {command}\nОшибка: {e}")
     
-    # Вечернее апоминание об дневнике настроения
+    # Вечернее напоминание об дневнике настроения
     # Срабатывает если пользователь не отметил свое настроение
     @router_for_admin.message(F.text, Command("push_dairy"))
     async def push_dairy(message: types.Message):

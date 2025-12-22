@@ -42,7 +42,7 @@ class Data:
             Data TEXT NOT NULL)
         """)
     
-    # Добавление новго пользователя в БД 
+    # Добавление нового пользователя в БД 
     def add_user(self, user_id: int, date: str):
         all_users = self.cursor.execute("SELECT USER_ID FROM Settings").fetchall()
 
@@ -51,7 +51,7 @@ class Data:
                                 (user_id, 0, 0, date, 0))
             self.connection.commit()
 
-    # Изменние настроек о добавление плавания/велосипеда в ежедневные задания
+    # Изменение настроек о добавление плавания/велосипеда в ежедневные задания
     def change_settings(self, user_id: int, type_task: str, value: int):
         self.cursor.execute(f"UPDATE Settings SET {type_task} = ? WHERE USER_ID = ?",
                              (value, user_id))
@@ -68,7 +68,7 @@ class Data:
 
         return result
     
-    # Добавление сгенерированных ежедневных задач польхователя в БД
+    # Добавление сгенерированных ежедневных задач пользователя в БД
     def add_tasks(self, user_id: int, date: str, tasks_text: list[str]):
         self.cursor.execute("INSERT INTO Tasks (USER_ID, TASK1, TEXT1, TASK2, TEXT2, TASK3, TEXT3, DATA) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                              (user_id, 0, tasks_text[0], 0, tasks_text[1], 0, tasks_text[2], date))
@@ -84,16 +84,19 @@ class Data:
                              (settings[3] + 1, user_id))
         self.connection.commit()
     
+    # Получить ID всех пользователей
     def get_all_id(self) -> tuple:
         all_users = self.cursor.execute("SELECT USER_ID FROM Settings").fetchall()
 
         return all_users
 
+    # получить данные о дневнике настроения пользователя
     def get_dairy(self, user_id: int) -> tuple:
         all_users = self.cursor.execute("SELECT * FROM Dairy WHERE USER_ID = ?", (user_id,)).fetchall()
 
         return all_users
 
+    # Поменять данные в дневнике здоровья пользователя
     def set_dairy(self, user_id: int, date: str, emotion: str, value: int) -> tuple:
         if not self.get_dairy(user_id):
             self.cursor.execute("INSERT INTO Dairy (USER_ID, VERY_HAPPY, HAPPY, NORMAL, SAD, VERY_SAD, DATA) VALUES (?, ?, ?, ?, ?, ?, ?)",

@@ -29,7 +29,7 @@ def make_inline(buttons: list[str], message: list[str], adjust: int, id: int):
 def color(text: str) -> str:
     return f"\033[1m\033[33m{text}\033[0m"
 
-# Функция для нахождения количества днейв промежутке
+# Функция для нахождения количества дней в промежутке
 def get_days(registration: str) -> int:
     date_now = datetime.date.today()
 
@@ -38,7 +38,7 @@ def get_days(registration: str) -> int:
 
     return (date_now - date_object).days + 1
 
-# Фуекция для поиска заданий пользователя на сегодняшний день
+# Функция для поиска заданий пользователя на сегодняшний день
 def get_tasks(user_id: int, data: Data) -> tuple:
     date_now = datetime.date.today()
     result = data.get_tasks(user_id, date_now)
@@ -59,7 +59,7 @@ def generate_tasks(user_id: int, data: Data, date: str):
         res[3] = choice(TASKS["distance"][2])
         num += 1
 
-    # добавление заданий на велоспиед с шансом 20%
+    # добавление заданий на велосипед с шансом 20%
     if settings[1] and randint(1, 5) == 3:
         res[2] = choice(TASKS["distance"][3])
         num += 1

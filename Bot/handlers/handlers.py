@@ -166,7 +166,7 @@ def handlers(data: Data):
         command = color("Психологическое благополучие")
 
         try:
-            inline = make_inline(ANSWERS["psyhology"]["inline"], ANSWERS["psyhology"]["backend"], 1, message.from_user.id)
+            inline = make_inline(ANSWERS["psyhology"]["inline"], ANSWERS["psyhology"]["backend"], 1, user_id)
             await message.answer(text=ANSWERS["psyhology"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")

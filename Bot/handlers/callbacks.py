@@ -46,7 +46,7 @@ def main_menu(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
-    # Изменние настроек о добавление плавания в ежедневные задания
+    # Изменение настроек о добавление плавания в ежедневные задания
     @router_for_callbacks.callback_query(F.data.startswith("*swimming*"))
     async def swimming(callback_query: types.CallbackQuery):
         text = callback_query.data.split("*")
@@ -78,7 +78,7 @@ def main_menu(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
-    # Изменние настроек о добавление велосипеда в ежедневные задания
+    # Изменение настроек о добавление велосипеда в ежедневные задания
     @router_for_callbacks.callback_query(F.data.startswith("*bicycle*"))
     async def bicycle(callback_query: types.CallbackQuery):
         text = callback_query.data.split("*")
@@ -139,7 +139,7 @@ def main_menu(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
-    # возвращение в главное меню (из настроек)
+    # Возвращение в главное меню
     @router_for_callbacks.callback_query(F.data.startswith("*menu*"))
     async def menu_back(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
@@ -157,7 +157,7 @@ def main_menu(data: Data):
 
 
 def physical_well_being(data: Data):
-    # советы (физическое благополучие)
+    # Советы (физическое благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*advices*"))
     async def advices(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
@@ -173,7 +173,7 @@ def physical_well_being(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
-    # ежедневные задания (физическое благополучие)
+    # Ежедневные задания (физическое благополучие)
     @router_for_callbacks.callback_query(F.data.startswith("*tasks*"))
     async def tasks_back(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
@@ -210,7 +210,7 @@ def physical_well_being(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
-    # Физическое благополучие
+    # Возвращение в физическое благополучие
     @router_for_callbacks.callback_query(F.data.startswith("*physical*"))
     async def physical_back(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
@@ -373,7 +373,7 @@ def social_well_being(data: Data):
 
 
 def psyhological_well_being(data: Data):
-    # Психологическое благополучие
+    # Возращение в психологическое благополучие
     @router_for_callbacks.callback_query(F.data.startswith("*psyhology*"))
     async def psyhology_back(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
@@ -389,7 +389,7 @@ def psyhological_well_being(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
 
-    # функция SOS
+    # Функция SOS
     @router_for_callbacks.callback_query(F.data.startswith("*sos*"))
     async def sos(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
@@ -421,7 +421,7 @@ def psyhological_well_being(data: Data):
         except Exception as e: # на случай непредвиденной ошибки
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
     
-    # Булинг (навигатор помощи)
+    # Буллинг (навигатор помощи)
     @router_for_callbacks.callback_query(F.data.startswith("*bulling*"))
     async def bulling(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
