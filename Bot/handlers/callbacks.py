@@ -14,6 +14,7 @@ router_for_callbacks = Router()
 def callbacks(data: Data):
     physical_well_being(data)
     social_well_being(data)
+    psyhological_well_being(data)
 
 
 def physical_well_being(data: Data):
@@ -361,14 +362,33 @@ def social_well_being(data: Data):
             logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
 
 
-def psyhological(data: Data):
+def psyhological_well_being(data: Data):
+    # Психологическое благополучие
+    @router_for_callbacks.callback_query(F.data.startswith("*psyhology*"))
+    async def psyhology_back(callback_query: types.CallbackQuery):
+        id_user = int(callback_query.data.split("*")[2])
+        user_id = color("id=" + str(id_user))
+        command = color("Вернулся в психологическое благополучие")
+
+        try:
+            inline = make_inline(ANSWERS["psyhology"]["inline"], ANSWERS["psyhology"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["psyhology"]["message"], reply_markup=inline)
+
+            logger.info(f"Пользователь с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"Пользователь с {user_id} активировал {command}\nОшибка: {e}")
+
+    # функция SOS
     @router_for_callbacks.callback_query(F.data.startswith("*sos*"))
     async def sos(callback_query: types.CallbackQuery):
         id_user = int(callback_query.data.split("*")[2])
         user_id = color("id=" + str(id_user))
-        command = color("sos")
+        command = color("SOS")
 
         try:
+            inline = make_inline(ANSWERS["sos"]["inline"], ANSWERS["sos"]["backend"], 1, id_user)
+            await callback_query.message.edit_text(text=ANSWERS["sos"]["message"], reply_markup=inline)
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
         
