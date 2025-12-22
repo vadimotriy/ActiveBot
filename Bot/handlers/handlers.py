@@ -64,7 +64,7 @@ def handlers(data: Data):
 
     # Переход в социальное благополучие
     @router.message(F.text == "Социальное благополучие")
-    async def menu(message: types.Message):
+    async def social(message: types.Message):
         user_id = color("id=" + str(message.from_user.id))
         command = color("Социальное благополучие")
 
@@ -79,7 +79,7 @@ def handlers(data: Data):
 
     # Таймер - его активация
     @router.message(Timer.reason, F.text)
-    async def menu(message: types.Message, state: FSMContext):
+    async def timer_activate(message: types.Message, state: FSMContext):
         user_id = color("id=" + str(message.from_user.id))
         command = color("Активация таймера")
 
@@ -93,10 +93,10 @@ def handlers(data: Data):
                 hour = True
 
             text = str(time) + (" часов" if hour else " минут")
+            await state.clear()
             await message.answer(text=f"Через <b>{text}</b> вам придет напоминание. Ожидайте.")
             await asyncio.sleep(data["time"])
             await message.answer(text=ANSWERS["timer_after"]["push_message"] + reason)
-            await state.clear()
 
             logger.info(f"Пользователь с {user_id} активировал {command}")
 
