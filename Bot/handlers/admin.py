@@ -35,11 +35,17 @@ def admin(data: Data, bot: Bot):
                     if info:
                         info = info[0]
                         if all((not info[1], not info[3], not info[5])):
+                            try:
+                                await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
+                                num += 1
+                            except Exception as e: # случай - если пользователь заблокировал бота
+                                pass
+                    else:
+                        try:
                             await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
                             num += 1
-                    else:
-                        await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
-                        num += 1
+                        except Exception as e: # случай - если пользователь заблокировал бота
+                                pass
 
 
                 await message.answer(text=ANSWERS["push"]["message_admin"] + f"{num} сообщений.")
@@ -68,14 +74,62 @@ def admin(data: Data, bot: Bot):
                     if info:
                         info = info[0]
                         if all((not info[1], not info[3], not info[5])):
+                            try:
+                                await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
+                                num += 1
+                            except Exception as e: # случай - если пользователь заблокировал бота
+                                pass
+                        elif any((not info[1], not info[3], not info[5])):
+                            try:
+                                await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_evening"])
+                                num += 1
+                            except Exception as e: # случай - если пользователь заблокировал бота
+                                pass
+                    else:
+                        try:
                             await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
                             num += 1
-                        elif any((not info[1], not info[3], not info[5])):
-                            await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_evening"])
-                            num += 1
+                        except Exception as e: # случай - если пользователь заблокировал бота
+                            pass
+
+
+                await message.answer(text=ANSWERS["push"]["message_admin"] + f"{num} сообщений.")
+                logger.info(f"АДМИН с {user_id} активировал {command}")
+        
+        except Exception as e: # на случай непредвиденной ошибки
+            logger.error(f"АДМИН с {user_id} активировал {command}\nОшибка: {e}")
+    
+    # Вечернее апоминание об дневнике настроения
+    # Срабатывает если пользователь не отметил свое настроение
+    @router_for_admin.message(F.text, Command("push_dairy"))
+    async def push_dairy(message: types.Message):
+        user_id = color("id=" + str(message.from_user.id))
+        command = color("/push_evening")
+
+        try:
+            if str(message.from_user.id) != ADMIN:
+                await message.answer(text=ANSWERS["push"]["message_not_admin"])
+            else:
+                all_users = data.get_all_id()
+
+                date_now = str(date.today())
+                num = 0
+                for i in all_users:
+                    info = data.get_dairy(i[0])
+                    if info:
+                        info = info[0]
+                        if info[6] != date_now:
+                            try:
+                                await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_dairy"])
+                                num += 1
+                            except Exception as e: # случай - если пользователь заблокировал бота
+                                pass
                     else:
-                        await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_day"])
-                        num += 1
+                        try:
+                            await bot.send_message(chat_id=i[0], text=ANSWERS["push"]["message_dairy"])
+                            num += 1
+                        except Exception as e: # случай - если пользователь заблокировал бота
+                            pass
 
 
                 await message.answer(text=ANSWERS["push"]["message_admin"] + f"{num} сообщений.")
